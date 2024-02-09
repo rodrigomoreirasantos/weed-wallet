@@ -1,3 +1,6 @@
+"use client";
+
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -9,10 +12,16 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
 const Header = () => {
+  const { data } = useSession();
+  const handleLoginClick = async () => {
+    await signIn("google");
+  };
+
   return (
     <header>
       <Card>
@@ -21,7 +30,14 @@ const Header = () => {
             <h1>Weed Wallet</h1>
             {/* <Image src="/logo.png" alt="Weed Wallet" height={40} width={40} /> */}
           </Link>
-          <Sheet>
+          {data?.user ? (
+            <Avatar>
+              <AvatarImage src={data.user?.image ?? ""} />
+            </Avatar>
+          ) : (
+            <Button onClick={handleLoginClick}>Login</Button>
+          )}
+          {/* <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon">
                 <MenuIcon size={16} />
@@ -36,7 +52,7 @@ const Header = () => {
                 account and remove your data from our servers.
               </SheetDescription>
             </SheetContent>
-          </Sheet>
+          </Sheet> */}
         </CardContent>
       </Card>
     </header>
