@@ -10,7 +10,7 @@ const WeedCard = () => {
         <CardContent className="flex flex-row gap-5 p-5">
           <Image src="/weedImg.png" alt="Weed Image" height={80} width={130} />
           <div>
-            <Badge className="bg-[#D9D9D9] text-black rounded">Sativa</Badge>
+            <Badge className="bg-[#D9D9D9] text-gray-600 rounded">Sativa</Badge>
             <h2>Amnésia Haze</h2>
             <div className="flex flex-row justify-between">
               <div className="flex flex-col items-center">
