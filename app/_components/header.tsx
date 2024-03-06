@@ -12,7 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -20,6 +20,10 @@ const Header = () => {
   const { data } = useSession();
   const handleLoginClick = async () => {
     await signIn("google");
+  };
+
+  const handleSignOutClick = async () => {
+    await signOut();
   };
 
   return (
@@ -31,9 +35,12 @@ const Header = () => {
             {/* <Image src="/logo.png" alt="Weed Wallet" height={40} width={40} /> */}
           </Link>
           {data?.user ? (
-            <Avatar>
-              <AvatarImage src={data.user?.image ?? ""} />
-            </Avatar>
+            <>
+              <Avatar>
+                <AvatarImage src={data.user?.image ?? ""} />
+              </Avatar>
+              <Button onClick={handleSignOutClick}>Disconnect</Button>
+            </>
           ) : (
             <Button onClick={handleLoginClick}>Login</Button>
           )}
