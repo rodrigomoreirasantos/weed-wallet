@@ -15,21 +15,22 @@ const User = ({ weeds }: WeedProps) => {
   const { status } = useSession();
 
   return (
-    <>
-      <Search />
-
+    <div>
       {status == "authenticated" ? (
-        <div className="overflow-y-auto max-h-screen [&::-webkit-scrollbar]:hidden">
-          {weeds.map((weed) => (
-            <>
-              <WeedCard key={weed.id} weed={weed} />
-            </>
-          ))}
-        </div>
+        <>
+          <Search />
+          <div className="overflow-y-auto max-h-screen [&::-webkit-scrollbar]:hidden">
+            {weeds.map((weed) => (
+              <>
+                <WeedCard key={weed.id} weed={weed} />
+              </>
+            ))}
+          </div>
+        </>
       ) : (
         <AboutUs />
       )}
-    </>
+    </div>
   );
 };
 
