@@ -3,18 +3,11 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { MenuIcon } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
+import Menu from "./menu";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
+import { MenuIcon } from "lucide-react";
 
 const Header = () => {
   const { data } = useSession();
@@ -39,27 +32,11 @@ const Header = () => {
               <Avatar>
                 <AvatarImage src={data.user?.image ?? ""} />
               </Avatar>
-              <Button onClick={handleSignOutClick}>Disconnect</Button>
+              <Menu />
             </>
           ) : (
             <Button onClick={handleLoginClick}>Login</Button>
           )}
-          {/* <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon">
-                <MenuIcon size={16} />
-              </Button>
-            </SheetTrigger>
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle>Menu</SheetTitle>
-              </SheetHeader>
-              <SheetDescription>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
-              </SheetDescription>
-            </SheetContent>
-          </Sheet> */}
         </CardContent>
       </Card>
     </header>
