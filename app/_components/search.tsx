@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { Weed } from "@prisma/client";
-import NewWeed from "./new-weed";
+import NewWeed from "../(newWeed)/new-weed";
 
 const Search = () => {
   const {} = useForm<Weed>();
