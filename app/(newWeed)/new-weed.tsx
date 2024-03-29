@@ -31,8 +31,9 @@ const NewWeed = () => {
             variant="outline"
             id="sativa"
             onClick={() => handleWeedType("sativa")}
-            className={`${
-              currentWeedType == "sativa" && "bg-red-500 text-white"
+            className={`px-9 ${
+              currentWeedType == "sativa" &&
+              "bg-weed-sativa hover:bg-weed-sativa"
             }`}
           >
             Sativa
@@ -41,8 +42,9 @@ const NewWeed = () => {
             variant="outline"
             id="indica"
             onClick={() => handleWeedType("indica")}
-            className={`${
-              currentWeedType == "indica" && "bg-red-500 text-white"
+            className={`px-9 ${
+              currentWeedType == "indica" &&
+              "bg-weed-indica hover:bg-weed-indica"
             }`}
           >
             Indica
@@ -51,8 +53,9 @@ const NewWeed = () => {
             variant="outline"
             id="hybrid"
             onClick={() => handleWeedType("hybrid")}
-            className={`${
-              currentWeedType == "hybrid" && "bg-red-500 text-white"
+            className={`px-9 ${
+              currentWeedType == "hybrid" &&
+              "bg-weed-hybrid hover:bg-weed-hybrid"
             }`}
           >
             Hybrid
