@@ -12,7 +12,7 @@ interface WeedProps {
 }
 
 const User = ({ weeds }: WeedProps) => {
-  const { status } = useSession();
+  const { status, data: session } = useSession();
 
   return (
     <div>
@@ -20,11 +20,11 @@ const User = ({ weeds }: WeedProps) => {
         <>
           <Search />
           <div className="overflow-y-auto max-h-screen [&::-webkit-scrollbar]:hidden">
-            {weeds.map((weed) => (
+            {/* {weeds.map((weed) => (
               <>
                 <WeedCard key={weed.id} weed={weed} />
               </>
-            ))}
+            ))} */}
           </div>
         </>
       ) : (

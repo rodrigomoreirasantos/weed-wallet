@@ -9,6 +9,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { PlusCircle } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -17,10 +18,12 @@ interface NewWeedProps {
   name: string;
   thc: string;
   cbd: string;
+  user: { id: string; email: string; name: string; image: string };
 }
 
 const NewWeed = () => {
   const [currentWeedType, setCurrentWeedType] = useState<string>();
+  const { data: session } = useSession();
 
   const {
     register,
@@ -29,7 +32,22 @@ const NewWeed = () => {
     formState: { errors },
   } = useForm<NewWeedProps>();
 
-  const onSubmit = (weed: NewWeedProps) => {
+  const onSubmit = async (weed: NewWeedProps) => {
+    const response = await fetch("/api/weed/", {
+      method: "POST",
+      body: Buffer.from(
+        JSON.stringify({
+          name: weed.name,
+          cbd: weed.cbd,
+          thc: weed.thc,
+          type: weed.type,
+          user: session?.user,
+        })
+      ),
+    });
+
+    // const res = await response.json();
+    console.log(response.json());
     return console.log(weed);
   };
 
