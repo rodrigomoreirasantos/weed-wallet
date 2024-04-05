@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTrigger,
@@ -46,9 +47,7 @@ const NewWeed = () => {
       ),
     });
 
-    // const res = await response.json();
-    console.log(response.json());
-    return console.log(weed);
+    const res = await response.json();
   };
 
   function handleWeedTypeClick(type: string) {
@@ -155,7 +154,9 @@ const NewWeed = () => {
           </div>
         </div>
 
-        <Button onClick={() => handleSubmit(onSubmit)()}>Save</Button>
+        <SheetClose asChild>
+          <Button onClick={() => handleSubmit(onSubmit)()}>Save</Button>
+        </SheetClose>
       </SheetContent>
     </Sheet>
   );
