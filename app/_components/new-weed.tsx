@@ -9,6 +9,7 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { toast } from "sonner";
 import { PlusCircle } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -48,6 +49,11 @@ const NewWeed = () => {
     });
 
     const res = await response.json();
+
+    if (res.success) {
+      return toast.success("Successfully added new strain!");
+    }
+    return toast.error("Failed to add new strain.");
   };
 
   function handleWeedTypeClick(type: string) {
