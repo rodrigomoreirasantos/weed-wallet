@@ -20,7 +20,7 @@ interface NewWeedProps {
   name: string;
   thc: string;
   cbd: string;
-  user: { id: string; email: string; name: string; image: string };
+  // user: { id: string; email: string; name: string; image: string };
 }
 
 const NewWeed = () => {
