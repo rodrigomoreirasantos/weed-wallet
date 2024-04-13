@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "./_providers/auth";
 import { Toaster } from "sonner";
+import WeedProvider from "./_providers/weed";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} overflow-hidden`}>
         <AuthProvider>
-          {children}
+          <WeedProvider>{children}</WeedProvider>
           <Toaster richColors />
         </AuthProvider>
       </body>

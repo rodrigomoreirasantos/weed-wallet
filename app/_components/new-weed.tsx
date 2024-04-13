@@ -12,19 +12,20 @@ import {
 import { toast } from "sonner";
 import { PlusCircle } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { WeedContext } from "../_providers/weed";
 
 interface NewWeedProps {
   type: string;
   name: string;
   thc: string;
   cbd: string;
-  // user: { id: string; email: string; name: string; image: string };
 }
 
 const NewWeed = () => {
   const [currentWeedType, setCurrentWeedType] = useState<string>();
+  const { setWeedFromUser } = useContext(WeedContext);
   const { data: session } = useSession();
 
   const {
@@ -51,9 +52,19 @@ const NewWeed = () => {
     const res = await response.json();
 
     if (res.success) {
-      return toast.success("Successfully added new strain!");
+      toast.success("Successfully added new strain!");
+      const weedForm = {
+        id: res.id,
+        name: weed.name,
+        cbd: weed.cbd,
+        thc: weed.thc,
+        type: weed.type,
+        userId: session?.user,
+      };
+      setWeedFromUser((state: any) => [...state, weedForm]);
+    } else {
+      return toast.error("Failed to add new strain.");
     }
-    return toast.error("Failed to add new strain.");
   };
 
   function handleWeedTypeClick(type: string) {

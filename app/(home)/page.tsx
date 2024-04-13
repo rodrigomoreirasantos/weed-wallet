@@ -7,7 +7,9 @@ import { authOptions } from "../_lib/auth";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
+
   if (!session) return <Header />;
+
   const weeds = await db.weed.findMany({
     where: {
       userId: (session?.user as any).id,

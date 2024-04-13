@@ -8,7 +8,7 @@ export async function POST(request: Request) {
 
   const userId = user.id;
 
-  await db.weed.create({
+  const createWeed = await db.weed.create({
     data: {
       name,
       cbd,
@@ -21,6 +21,7 @@ export async function POST(request: Request) {
   return new NextResponse(
     JSON.stringify({
       success: 200,
+      id: createWeed.id,
     }),
     { status: 201 }
   );
