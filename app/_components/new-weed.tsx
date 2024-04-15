@@ -61,7 +61,7 @@ const NewWeed = () => {
         type: weed.type,
         userId: session?.user,
       };
-      setWeedFromUser((state: any) => [...state, weedForm]);
+      setWeedFromUser((prev: any) => [...prev, weedForm]);
     } else {
       return toast.error("Failed to add new strain.");
     }
