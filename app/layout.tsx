@@ -4,6 +4,7 @@ import "./globals.css";
 import AuthProvider from "./_providers/auth";
 import { Toaster } from "sonner";
 import WeedProvider from "./_providers/weed";
+import SearchProvider from "./_providers/search";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} overflow-hidden`}>
         <AuthProvider>
-          <WeedProvider>{children}</WeedProvider>
+          <SearchProvider>
+            <WeedProvider>{children}</WeedProvider>
+          </SearchProvider>
           <Toaster richColors />
         </AuthProvider>
       </body>

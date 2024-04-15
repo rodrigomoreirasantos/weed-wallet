@@ -1,10 +1,12 @@
 "use client";
 
 import {
+  ChangeEvent,
   createContext,
   Dispatch,
   ReactNode,
   SetStateAction,
+  useCallback,
   useState,
 } from "react";
 
@@ -28,7 +30,12 @@ const WeedProvider = ({ children }: { children: ReactNode }) => {
   const [weedFromUser, setWeedFromUser] = useState<WeedFormProps[]>([]);
 
   return (
-    <WeedContext.Provider value={{ weedFromUser, setWeedFromUser }}>
+    <WeedContext.Provider
+      value={{
+        weedFromUser,
+        setWeedFromUser,
+      }}
+    >
       {children}
     </WeedContext.Provider>
   );

@@ -10,7 +10,7 @@ interface WeedProps {
 
 const WeedCard = ({ weed }: WeedProps) => {
   return (
-    <div className="p-5">
+    <div className="px-5 py-5">
       <Card className="rounded-lg">
         <CardContent className="flex flex-row gap-5 p-5">
           <Image src="/weedImg.png" alt="Weed Image" height={80} width={130} />
