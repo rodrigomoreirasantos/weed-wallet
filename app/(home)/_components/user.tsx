@@ -6,15 +6,18 @@ import Search from "@/app/_components/search";
 import { Weed } from "@prisma/client";
 import WeedCard from "@/app/_components/weed-card";
 import { WeedContext } from "@/app/_providers/weed";
+import { SearchContext } from "@/app/_providers/search";
 
 interface WeedProps {
   weeds: Weed[];
 }
 const User = ({ weeds }: WeedProps) => {
   const { weedFromUser, setWeedFromUser } = useContext(WeedContext);
+  const { setWeedsByUser } = useContext(SearchContext);
 
   useEffect(() => {
     setWeedFromUser(weeds);
+    setWeedsByUser(weeds);
   }, []);
 
   return (
