@@ -8,7 +8,7 @@ const Search = () => {
 
   return (
     <div className="p-5 flex flex-row gap-4">
-      <Input value={search} onChange={onChange} defaultValue="" />
+      <Input value={search} onChange={onChange} />
       <NewWeed />
     </div>
   );

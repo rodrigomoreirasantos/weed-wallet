@@ -8,6 +8,7 @@ import {
   createContext,
   useCallback,
   useDeferredValue,
+  useEffect,
   useState,
 } from "react";
 
@@ -16,6 +17,8 @@ interface SearchProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   setSearch: Dispatch<SetStateAction<string>>;
   setWeedsByUser: Dispatch<SetStateAction<WeedFormProps[]>>;
+  setWeedSearchedByUser: Dispatch<SetStateAction<WeedFormProps[]>>;
+  weedSearchedByUser: WeedFormProps[];
 }
 
 interface WeedFormProps {
@@ -32,21 +35,36 @@ export const SearchContext = createContext({} as SearchProps);
 const SearchProvider = ({ children }: { children: ReactNode }) => {
   const [search, setSearch] = useState<string>("");
   const [weedsByUser, setWeedsByUser] = useState<WeedFormProps[]>([]);
+  const [weedSearchedByUser, setWeedSearchedByUser] = useState<WeedFormProps[]>(
+    []
+  );
+
   const weedDeferredSearched = useDeferredValue(search);
 
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   }, []);
 
-  const result = weedsByUser.filter((weed) =>
-    weed.name.toLowerCase().includes(weedDeferredSearched.toLowerCase())
-  );
+  useEffect(() => {
+    const weedFiltered = weedsByUser.filter((weed) =>
+      weed.name.toLowerCase().includes(weedDeferredSearched.toLowerCase())
+    );
 
-  console.log(result);
+    setWeedSearchedByUser(weedFiltered);
+  }, [weedsByUser, weedDeferredSearched, setWeedSearchedByUser]);
+
+  console.log(weedSearchedByUser);
 
   return (
     <SearchContext.Provider
-      value={{ setSearch, search, onChange, setWeedsByUser }}
+      value={{
+        setSearch,
+        search,
+        onChange,
+        setWeedsByUser,
+        weedSearchedByUser,
+        setWeedSearchedByUser,
+      }}
     >
       {children}
     </SearchContext.Provider>
