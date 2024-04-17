@@ -25,7 +25,7 @@ interface NewWeedProps {
 
 const NewWeed = () => {
   const [currentWeedType, setCurrentWeedType] = useState<string>();
-  const { setWeedFromUser } = useContext(WeedContext);
+  const { setNewWeedFromUser } = useContext(WeedContext);
   const { data: session } = useSession();
 
   const {
@@ -61,7 +61,7 @@ const NewWeed = () => {
         type: weed.type,
         userId: session?.user,
       };
-      setWeedFromUser((prev: any) => [...prev, weedForm]);
+      setNewWeedFromUser((prev: any) => [...prev, weedForm]);
     } else {
       return toast.error("Failed to add new strain.");
     }
