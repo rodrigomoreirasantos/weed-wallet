@@ -11,8 +11,8 @@ import {
 } from "react";
 
 interface WeedContextProps {
-  weedFromUser: WeedFormProps[];
-  setWeedFromUser: Dispatch<SetStateAction<WeedFormProps[]>>;
+  newWeedFromUser: WeedFormProps[];
+  setNewWeedFromUser: Dispatch<SetStateAction<WeedFormProps[]>>;
 }
 
 interface WeedFormProps {
@@ -27,13 +27,13 @@ interface WeedFormProps {
 export const WeedContext = createContext({} as WeedContextProps);
 
 const WeedProvider = ({ children }: { children: ReactNode }) => {
-  const [weedFromUser, setWeedFromUser] = useState<WeedFormProps[]>([]);
+  const [newWeedFromUser, setNewWeedFromUser] = useState<WeedFormProps[]>([]);
 
   return (
     <WeedContext.Provider
       value={{
-        weedFromUser,
-        setWeedFromUser,
+        newWeedFromUser,
+        setNewWeedFromUser,
       }}
     >
       {children}
