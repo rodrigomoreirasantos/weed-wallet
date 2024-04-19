@@ -22,7 +22,7 @@ const User = ({ weeds }: WeedProps) => {
   return (
     <div>
       <Search setSearchedWeed={setSearchedWeed} />
-      <div className="overflow-y-auto h-[calc(100vh_-_150px)] [&::-webkit-scrollbar]:hidden lg:flex lg:flex-row">
+      <div className="overflow-y-auto h-[calc(100vh_-_150px)] [&::-webkit-scrollbar]:hidden lg:grid lg:grid-cols-3">
         {searchedWeed.map((weed) => (
           <div key={weed.id} className="w-full">
             <WeedCard weed={weed} />
