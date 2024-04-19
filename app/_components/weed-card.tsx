@@ -1,7 +1,10 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Weed } from "@prisma/client";
-import { Leaf, Pipette } from "lucide-react";
+import { Leaf, Pipette, Heart } from "lucide-react";
 import Image from "next/image";
 
 interface WeedProps {
@@ -9,15 +12,54 @@ interface WeedProps {
 }
 
 const WeedCard = ({ weed }: WeedProps) => {
+  const handleLikedClick = async () => {
+    try {
+      const updatedWeed = { ...weed, liked: !weed.liked };
+      const response = await fetch(`/api/like/${weed.id}`, {
+        method: "PUT",
+        body: Buffer.from(
+          JSON.stringify({
+            updatedWeed,
+          })
+        ),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update liked status.");
+      }
+    } catch (error) {
+      console.error("Error updating liked status:", error);
+    }
+  };
+
   return (
     <div className="px-5 py-5">
       <Card className="rounded-lg">
         <CardContent className="flex flex-row gap-5 p-5">
           <Image src="/weedImg.png" alt="Weed Image" height={80} width={130} />
-          <div>
-            <Badge className="bg-[#D9D9D9] text-gray-600 rounded capitalize">
-              {weed.type}
-            </Badge>
+          <div className="w-full">
+            <div className="flex flex-row justify-between items-center w-full">
+              <Badge
+                className="bg-[#D9D9D9] text-gray-600 rounded capitalize px-4 py-2"
+                variant="outline"
+              >
+                {weed.type}
+              </Badge>
+
+              {weed.liked == false ? (
+                <Button variant="ghost" className="">
+                  <Heart className="" />
+                </Button>
+              ) : (
+                <Button
+                  variant="ghost"
+                  className="capitalize"
+                  onClick={handleLikedClick}
+                >
+                  <Heart className="fill-black" />
+                </Button>
+              )}
+            </div>
             <h2>{weed.name}</h2>
             <div className="flex flex-row justify-between w-10 gap-6">
               <div className="flex flex-col">
