@@ -63,5 +63,6 @@ model Weed {
   thc    String
   cbd    String
   userId String
+  liked Boolean @default(false)
   user   User   @relation(fields: [userId], references: [id])
 }
