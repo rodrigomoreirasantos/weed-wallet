@@ -14,14 +14,18 @@ interface WeedProps {
 const WeedCard = ({ weed }: WeedProps) => {
   const handleLikedClick = async () => {
     try {
+      if (!weed.id) {
+        console.error("Weed ID is undefined");
+        return;
+      }
       const updatedWeed = { ...weed, liked: !weed.liked };
-      const response = await fetch(`/api/like/${weed.id}`, {
+      console.log(updatedWeed);
+      const response = await fetch(`/api/liked/${weed.id}`, {
         method: "PUT",
-        body: Buffer.from(
-          JSON.stringify({
-            updatedWeed,
-          })
-        ),
+        body: JSON.stringify(updatedWeed),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
 
       if (!response.ok) {
@@ -46,19 +50,13 @@ const WeedCard = ({ weed }: WeedProps) => {
                 {weed.type}
               </Badge>
 
-              {weed.liked == false ? (
-                <Button variant="ghost" className="">
-                  <Heart className="" />
-                </Button>
-              ) : (
-                <Button
-                  variant="ghost"
-                  className="capitalize"
-                  onClick={handleLikedClick}
-                >
-                  <Heart className="fill-black" />
-                </Button>
-              )}
+              <Button
+                variant="ghost"
+                className="capitalize"
+                onClick={handleLikedClick}
+              >
+                <Heart className={`${weed.liked ? "fill-black" : ""}`} />
+              </Button>
             </div>
             <h2>{weed.name}</h2>
             <div className="flex flex-row justify-between w-10 gap-6">
