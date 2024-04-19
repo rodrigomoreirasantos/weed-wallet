@@ -11,7 +11,7 @@ interface WeedProps {
   weeds: Weed[];
 }
 const User = ({ weeds }: WeedProps) => {
-  const { newWeedFromUser, setNewWeedFromUser } = useContext(WeedContext);
+  const { setNewWeedFromUser } = useContext(WeedContext);
 
   const [searchedWeed, setSearchedWeed] = useState<any[]>([]);
 
@@ -19,16 +19,12 @@ const User = ({ weeds }: WeedProps) => {
     setNewWeedFromUser(weeds);
   }, []);
 
-  useEffect(() => {
-    console.log(searchedWeed);
-  }, [searchedWeed]);
-
   return (
     <div>
       <Search setSearchedWeed={setSearchedWeed} />
-      <div className="overflow-y-auto h-[calc(100vh_-_150px)] [&::-webkit-scrollbar]:hidden">
+      <div className="overflow-y-auto h-[calc(100vh_-_150px)] [&::-webkit-scrollbar]:hidden lg:flex lg:flex-row">
         {searchedWeed.map((weed) => (
-          <div key={weed.id}>
+          <div key={weed.id} className="w-full">
             <WeedCard weed={weed} />
           </div>
         ))}
