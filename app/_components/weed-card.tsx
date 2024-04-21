@@ -6,22 +6,25 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Weed } from "@prisma/client";
 import { Leaf, Pipette, Heart } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface WeedProps {
   weed: Weed;
 }
 
 const WeedCard = ({ weed }: WeedProps) => {
+  const [like, setLike] = useState<boolean>(weed.liked);
+
   const handleLikedClick = async () => {
     try {
+      setLike(!like);
       if (!weed.id) {
         console.error("Weed ID is undefined");
         return;
       }
       const updatedWeed = { ...weed, liked: !weed.liked };
-      console.log(updatedWeed);
       const response = await fetch(`/api/liked/${weed.id}`, {
-        method: "PUT",
+        method: "POST",
         body: JSON.stringify(updatedWeed),
         headers: {
           "Content-Type": "application/json",
@@ -50,13 +53,10 @@ const WeedCard = ({ weed }: WeedProps) => {
                 {weed.type}
               </Badge>
 
-              <Button
-                variant="ghost"
-                className="capitalize"
+              <Heart
                 onClick={handleLikedClick}
-              >
-                <Heart className={`${weed.liked ? "fill-black" : ""}`} />
-              </Button>
+                className={`${like ? "fill-black" : ""} cursor-pointer`}
+              />
             </div>
             <h2>{weed.name}</h2>
             <div className="flex flex-row justify-between w-10 gap-6">
