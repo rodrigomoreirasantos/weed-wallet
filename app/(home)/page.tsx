@@ -18,7 +18,6 @@ export default async function Home() {
 
   return (
     <>
-      <Header />
       <User weeds={weeds} />
     </>
   );
