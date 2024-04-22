@@ -6,6 +6,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
+import Link from "next/link";
 
 const Menu = () => {
   return (
@@ -18,6 +19,9 @@ const Menu = () => {
 
       <SheetContent>
         <SheetHeader>Menu</SheetHeader>
+        <Link href="/favorites">
+          <Button>Favorites</Button>
+        </Link>
       </SheetContent>
     </Sheet>
   );
