@@ -5,18 +5,21 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Weed } from "@prisma/client";
 import { Leaf, Pipette, Heart } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { FavoritesContext } from "../_providers/favorites";
 
 interface WeedProps {
   weed: Weed;
 }
 
 const WeedCard = ({ weed }: WeedProps) => {
+  const { favorites, toggleFavorite } = useContext(FavoritesContext);
   const [liked, setLiked] = useState<boolean>(weed.liked);
 
   const handleLikedClick = async () => {
     try {
       setLiked(!liked);
+      toggleFavorite(weed.id);
       const updatedWeed = { ...weed, liked: !weed.liked };
       if (!weed.id) {
         console.error("Weed ID is undefined");
@@ -37,9 +40,6 @@ const WeedCard = ({ weed }: WeedProps) => {
       console.error("Error updating liked status:", error);
     }
   };
-  if (!liked) {
-    return null;
-  }
 
   return (
     <div className="px-5 py-5">

@@ -3,6 +3,7 @@ import { authOptions } from "../_lib/auth";
 import Header from "../_components/header";
 import { db } from "../_lib/prisma";
 import WeedCard from "../_components/weed-card";
+import FavoritesProvider from "../_providers/favorites";
 
 export default async function Favorites() {
   const session = await getServerSession(authOptions);
@@ -14,18 +15,19 @@ export default async function Favorites() {
   const weeds = await db.weed.findMany({
     where: {
       userId: (session?.user as any).id,
+      liked: true,
     },
   });
 
-  const likedWeeds = weeds.filter((weed) => weed.liked == true);
-
   return (
-    <div>
-      {likedWeeds.map((likedWeed) => (
-        <div key={likedWeed.id}>
-          <WeedCard weed={likedWeed} />
-        </div>
-      ))}
-    </div>
+    <FavoritesProvider>
+      <div>
+        {weeds.map((likedWeed) => (
+          <div key={likedWeed.id}>
+            <WeedCard weed={likedWeed} />
+          </div>
+        ))}
+      </div>
+    </FavoritesProvider>
   );
 }
