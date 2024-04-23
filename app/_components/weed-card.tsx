@@ -1,7 +1,6 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Weed } from "@prisma/client";
 import { Leaf, Pipette, Heart } from "lucide-react";
@@ -13,16 +12,16 @@ interface WeedProps {
 }
 
 const WeedCard = ({ weed }: WeedProps) => {
-  const [like, setLike] = useState<boolean>(weed.liked);
+  const [liked, setLiked] = useState<boolean>(weed.liked);
 
   const handleLikedClick = async () => {
     try {
-      setLike(!like);
+      setLiked(!liked);
+      const updatedWeed = { ...weed, liked: !weed.liked };
       if (!weed.id) {
         console.error("Weed ID is undefined");
         return;
       }
-      const updatedWeed = { ...weed, liked: !weed.liked };
       const response = await fetch(`/api/liked/${weed.id}`, {
         method: "POST",
         body: JSON.stringify(updatedWeed),
@@ -38,6 +37,9 @@ const WeedCard = ({ weed }: WeedProps) => {
       console.error("Error updating liked status:", error);
     }
   };
+  if (!liked) {
+    return null;
+  }
 
   return (
     <div className="px-5 py-5">
@@ -55,7 +57,7 @@ const WeedCard = ({ weed }: WeedProps) => {
 
               <Heart
                 onClick={handleLikedClick}
-                className={`${like ? "fill-black" : ""} cursor-pointer`}
+                className={`${liked ? "fill-black" : ""} cursor-pointer`}
               />
             </div>
             <h2>{weed.name}</h2>
