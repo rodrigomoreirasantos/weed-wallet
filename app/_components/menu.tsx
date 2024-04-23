@@ -5,7 +5,7 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { MenuIcon, Heart } from "lucide-react";
+import { MenuIcon, Heart, Home } from "lucide-react";
 import Link from "next/link";
 
 const Menu = () => {
@@ -19,7 +19,13 @@ const Menu = () => {
 
       <SheetContent>
         <SheetHeader>Menu</SheetHeader>
-        <div className="py-5">
+        <div className="py-5 flex flex-col gap-4">
+          <Link href="/">
+            <Button variant="outline" className="w-full justify-start gap-2">
+              <Home size={16} />
+              Home
+            </Button>
+          </Link>
           <Link href="/favorites">
             <Button variant="outline" className="w-full justify-start gap-2">
               <Heart size={16} />
