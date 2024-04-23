@@ -37,7 +37,7 @@ const Menu = () => {
             </Link>
           </SheetClose>
 
-          <SheetClose>
+          <SheetClose asChild>
             <Link href="/favorites">
               <Button
                 variant="outline"
