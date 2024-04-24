@@ -8,12 +8,18 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { MenuIcon, Heart, Home } from "lucide-react";
+import { MenuIcon, Heart, Home, LogOut } from "lucide-react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const Menu = () => {
   const path = usePathname();
+
+  const handleLogoutClick = async () => {
+    await signOut();
+  };
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -24,7 +30,7 @@ const Menu = () => {
 
       <SheetContent>
         <SheetHeader>Menu</SheetHeader>
-        <div className="py-5 flex flex-col gap-4">
+        <div className="py-5 flex flex-col gap-4 flex-1 h-full">
           <SheetClose asChild>
             <Link href="/">
               <Button
@@ -49,6 +55,13 @@ const Menu = () => {
                 Favorites
               </Button>
             </Link>
+          </SheetClose>
+
+          <SheetClose asChild>
+            <Button className="flex gap-4" onClick={handleLogoutClick}>
+              <LogOut />
+              SignOut
+            </Button>
           </SheetClose>
         </div>
       </SheetContent>
