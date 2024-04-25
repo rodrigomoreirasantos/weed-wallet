@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../_lib/auth";
 import { db } from "../_lib/prisma";
 import WeedCard from "../_components/weed-card";
-import FavoritesProvider from "../_providers/favorites";
 
 export default async function Favorites() {
   const session = await getServerSession(authOptions);
@@ -15,14 +14,12 @@ export default async function Favorites() {
   });
 
   return (
-    <FavoritesProvider>
-      <div>
-        {weeds.map((likedWeed) => (
-          <div key={likedWeed.id}>
-            <WeedCard weed={likedWeed} />
-          </div>
-        ))}
-      </div>
-    </FavoritesProvider>
+    <div>
+      {weeds.map((likedWeed) => (
+        <div key={likedWeed.id}>
+          <WeedCard weed={likedWeed} />
+        </div>
+      ))}
+    </div>
   );
 }
