@@ -13,13 +13,16 @@ interface WeedProps {
 }
 
 const WeedCard = ({ weed }: WeedProps) => {
-  const { favorites, toggleFavorite } = useContext(FavoritesContext);
+  const { favorites, setFavorites } = useContext(FavoritesContext);
   const [liked, setLiked] = useState<boolean>(weed.liked);
+
+  useEffect(() => {
+    setFavorites((prevFavorites) => [...prevFavorites, weed]);
+  }, []);
 
   const handleLikedClick = async () => {
     try {
       setLiked(!liked);
-      toggleFavorite(weed.id);
       const updatedWeed = { ...weed, liked: !weed.liked };
       if (!weed.id) {
         console.error("Weed ID is undefined");
