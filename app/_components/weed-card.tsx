@@ -16,9 +16,9 @@ const WeedCard = ({ weed }: WeedProps) => {
   const { favorites, setFavorites } = useContext(FavoritesContext);
   const [liked, setLiked] = useState<boolean>(weed.liked);
 
-  useEffect(() => {
-    setFavorites((prevFavorites) => [...prevFavorites, weed]);
-  }, []);
+  // useEffect(() => {
+  //   setFavorites((prevFavorites) => [...prevFavorites, weed]);
+  // }, []);
 
   const handleLikedClick = async () => {
     try {
